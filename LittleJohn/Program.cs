@@ -13,12 +13,18 @@ namespace LittleJohn
 	{
 		public static void Main(string[] args)
 		{
-			new WebHostBuilder()
-				.UseKestrel()
-				.UseStartup<Startup>()
-				.UseUrls("http://localhost:8080")
+			CreateHostBuilder(args)				
 				.Build()
 				.Run();
 		}
+
+		 public static IHostBuilder CreateHostBuilder(string[] args) => 
+			Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+				webBuilder.UseKestrel();
+				webBuilder.UseStartup<Startup>();
+				webBuilder.UseUrls("http://localhost:8080");
+			});
 	}
 }
